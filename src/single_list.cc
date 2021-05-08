@@ -392,7 +392,89 @@ Linklist* mergeTwoLists_It(Linklist* head1, Linklist* head2){
     return head1;
 }
 
+// 删除链表的倒数第N个节点 双指针
+// 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+// 仅遍历一次
+// https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/solution/
+Linklist* removeNthFromEnd(Linklist* head, int n){
 
+    Linklist p = *head;
+    Linklist q = *head;
+    Linklist delNode;
+
+    for(int i = 0; i < n+1; i++){
+        q = q->next;
+    }
+
+    while(q){
+        p = p->next;
+        q = q->next;
+    }
+
+    delNode = p->next;
+    p->next = delNode->next;
+    free(delNode);
+
+    return head;
+    
+}
+// 错误示范
+// Linklist* removeNthFromEnd(Linklist* head, int n){
+//     // Linklist node_head = (*head)->next;
+//     // Linklist dummyhead;
+//     // InitList(&dummyhead);
+//     // dummyhead->next = (*head)->next;
+//     Linklist p = *head; // 写法有问题
+//     Linklist q = *head;
+//     // Linklist* p = &dummyhead; 
+//     // Linklist* q = &dummyhead;
+//     for(int i = 0; i < n; i++){
+//         q = q->next;
+//     }
+//     while(q){
+//         p = p->next;
+//         q = q->next;
+//     }
+
+//     Linklist* delNode = &(p->next);
+//     p->next = (*delNode)->next;
+//     free(*delNode);
+
+//     return head;
+    
+// }
+
+// 错误示范
+// Linklist* removeNthFromEnd(Linklist* head, int n){
+//     Linklist* dummy;
+//     *dummy = (Linklist)malloc(sizeof(List_Node));
+//     (*dummy)->next = (*head)->next;
+//     Linklist* first = &((*head)->next);
+//     Linklist* second = dummy;
+
+//     while (*first) {
+//         (*first) = (*first)->next;
+//         (*second) = (*second)->next;
+//     }
+
+
+// }
+
+// 给定一个头结点为head的非空单链表，返回链表的中间结点。
+// 如果有两个中间结点，则返回第二个中间结点。
+// 快慢指针法
+// https://leetcode-cn.com/problems/middle-of-the-linked-list/solution/
+Linklist* middleNode(Linklist* head){
+    static Linklist slow = (*head);
+    Linklist fast = (*head);
+
+    while(fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return &slow;
+}
 
 void single_list_demo(){
     Linklist L;
@@ -418,11 +500,12 @@ void single_list_demo(){
     printf("翻转之后：L.data=");
     ListTraverse(*L1);
 
-    /********检测链表的环******/
+    /********检测链表的环(有待改进)******/
     Linklist* L2;  // 注意初始化的方式
+    printf("链表中环的检测：\n");
     CreateCircularListTail((&(*L1)->next),7,3);
     L2 = detectCycle(L1);
-    if( L2 != NULL){
+    if( L2 != NULL)
         visit((*L2)->data);
 
     printf("\n");
@@ -442,13 +525,31 @@ void single_list_demo(){
     // 递归法
     printf("使用递归法合并两个有序单链表：\n");
     CreateSortedListTail(&SortedL3, 3);
-    sleep(1);  //延时等待一秒
+    // sleep(1);  //延时等待一秒
     CreateSortedListTail(&SortedL4, 2);
     ListTraverse(SortedL3);
     ListTraverse(SortedL4);
     mergeL4 = mergeTwoLists_It(&SortedL3, &SortedL4);
     ListTraverse(*mergeL4);
-    }
+    
+    /********删除单链表中的倒数第n个节点******/
+    printf("删除单链表中的倒数第n个节点\n");
+    Linklist L4;
+    Linklist* L5;
+    CreateListTail(&L4, 10);
+    ListTraverse(L4);
+    L5 = removeNthFromEnd(&L4,3);
+    ListTraverse(*L5);
+
+    /********求链表的中间节点******/
+    printf("求链表的中间节点\n");
+    Linklist L6;
+    Linklist* L7;
+    CreateListTail(&L6, 5);
+    ListTraverse(L6);
+    L5 = middleNode(&L6);
+    printf("链表的中间节点数值为：%d\n", (*L5)->data);
+
 
 
     

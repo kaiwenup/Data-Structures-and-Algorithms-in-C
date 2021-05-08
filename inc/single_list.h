@@ -49,6 +49,8 @@ Linklist* detectCycle(Linklist* head);
 Linklist* reverseList(Linklist* L);
 Linklist* reverseList_Iteration(Linklist* head);
 Linklist* reverseList_It(Linklist* head);
+Linklist* removeNthFromEnd(Linklist* head, int n);
+Linklist* middleNode(Linklist* head);
 void single_list_demo();
 
 
