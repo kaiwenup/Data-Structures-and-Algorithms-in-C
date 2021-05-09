@@ -1,14 +1,16 @@
 #include <iostream>
-#include "inc/linear.h"
-#include "inc/demo.h"
-#include "inc/linear_leetcode.h"
 #include "inc/single_list.h"
+#include "inc/mystack.h"
 
 using namespace std;
 
 int main() 
 {
-    single_list_demo();
+    /******单链表相关算法******/
+    // single_list_demo();
+
+    /******堆栈相关算法******/
+    mystack_demo();
  
     return 0;
 }

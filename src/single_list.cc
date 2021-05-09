@@ -402,6 +402,11 @@ Linklist* removeNthFromEnd(Linklist* head, int n){
     Linklist q = *head;
     Linklist delNode;
 
+    if(ListLength(*head) < n){
+        printf("removeNthFromEnd error!!!\n");
+        exit(-1);
+    }
+
     for(int i = 0; i < n+1; i++){
         q = q->next;
     }
@@ -420,45 +425,27 @@ Linklist* removeNthFromEnd(Linklist* head, int n){
 }
 // 错误示范
 // Linklist* removeNthFromEnd(Linklist* head, int n){
-//     // Linklist node_head = (*head)->next;
-//     // Linklist dummyhead;
-//     // InitList(&dummyhead);
-//     // dummyhead->next = (*head)->next;
-//     Linklist p = *head; // 写法有问题
-//     Linklist q = *head;
-//     // Linklist* p = &dummyhead; 
-//     // Linklist* q = &dummyhead;
+
+//     Linklist* p = head; // 写法有问题
+//     Linklist* q = &((*head)->next);
+
 //     for(int i = 0; i < n; i++){
-//         q = q->next;
+//         (*q) = (*q)->next;
 //     }
-//     while(q){
-//         p = p->next;
-//         q = q->next;
+//     while(q){  // 程序运行在这里就出问题了
+//         (*p) = (*p)->next;
+//         (*q) = (*q)->next;
 //     }
 
-//     Linklist* delNode = &(p->next);
-//     p->next = (*delNode)->next;
-//     free(*delNode);
+//     // Linklist* delNode = &(p->next);
+//     // p->next = (*delNode)->next;
+//     // free(*delNode);
 
 //     return head;
     
 // }
 
-// 错误示范
-// Linklist* removeNthFromEnd(Linklist* head, int n){
-//     Linklist* dummy;
-//     *dummy = (Linklist)malloc(sizeof(List_Node));
-//     (*dummy)->next = (*head)->next;
-//     Linklist* first = &((*head)->next);
-//     Linklist* second = dummy;
 
-//     while (*first) {
-//         (*first) = (*first)->next;
-//         (*second) = (*second)->next;
-//     }
-
-
-// }
 
 // 给定一个头结点为head的非空单链表，返回链表的中间结点。
 // 如果有两个中间结点，则返回第二个中间结点。
@@ -533,26 +520,22 @@ void single_list_demo(){
     ListTraverse(*mergeL4);
     
     /********删除单链表中的倒数第n个节点******/
-    printf("删除单链表中的倒数第n个节点\n");
+    int delnum = 1;
     Linklist L4;
     Linklist* L5;
-    CreateListTail(&L4, 10);
+    CreateListTail(&L4, 3);
+    printf("删除单链表中的倒数第%d个节点\n", delnum);
     ListTraverse(L4);
-    L5 = removeNthFromEnd(&L4,3);
+    L5 = removeNthFromEnd(&L4,delnum);
     ListTraverse(*L5);
 
     /********求链表的中间节点******/
     printf("求链表的中间节点\n");
     Linklist L6;
     Linklist* L7;
-    CreateListTail(&L6, 5);
+    CreateListTail(&L6, 3);
     ListTraverse(L6);
     L5 = middleNode(&L6);
     printf("链表的中间节点数值为：%d\n", (*L5)->data);
 
-
-
-    
-
-    
 }
