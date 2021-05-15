@@ -1,8 +1,8 @@
-#include "inc/single_list.h"
+#include "inc/mylist.h"
 #include "inc/mystack.h"
 #include "inc/myLinkQueue.h"
-#include "inc/ComFun.h"
 #include "inc/mysorted.h"
+#include "inc/ComFun.h"
 
 
 

@@ -1,5 +1,5 @@
-#ifndef SINGLE_LIST_H
-#define SINGLE_LIST_H
+#ifndef MYLIST_H
+#define MTLIST_H
 
 #include "stdio.h"    
 #include "string.h"
