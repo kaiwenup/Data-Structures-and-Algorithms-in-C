@@ -16,7 +16,8 @@ OBJECTS = test
  BIN_TARGET = $(BIN)/$(TARGET)
  
  CC = gcc 
- CFLAGS = -g -std=gnu++0x   -I$(INC)
+ #CFLAGS = -g -std=gnu++0x   -I$(INC)
+ CFLAGS = -g -std=c99 -I$(INC)
  
 # 生成最后的可执行文件
 $(BIN_TARGET):$(OBJECT)
