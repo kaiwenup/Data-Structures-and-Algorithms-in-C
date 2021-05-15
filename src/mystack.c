@@ -122,7 +122,8 @@ int evalRPN(char** tokens, int tokensSize){
     int num1;
     if(InitStack(&stk) == OK)
     {
-        for(int i = 0; i < n; i++){
+        int i;
+        for(i = 0; i < n; i++){
             char* token = tokens[i];
             if(isNumber(token)){
                 int tmp = atoi(token);
@@ -168,6 +169,7 @@ int mystack_demo(){
     printf("清空栈后，栈空否：%d(1:空 0:否)\n",IsEmpty(s1));
 
     /******根据逆波兰表示法，求表达式的值,栈实现******/
+    printf("根据逆波兰表示法，求表达式的值\n");
     char* tokens[] = {"4","13","5","/","+"};  // 答案是6
     printf("结果是：%d\n", evalRPN(tokens, 5));
     

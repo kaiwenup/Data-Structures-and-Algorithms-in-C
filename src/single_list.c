@@ -191,6 +191,7 @@ void CreateListTail(Linklist *L, int n) {
     index = *L;
     int i;
     srand(time(0));  // 初始化随机数种子
+    // srand((unsigned)time(NULL));
     for(i = 0; i < n; i++){
         tmp = (Linklist)malloc(sizeof(List_Node));
         tmp->data =  rand()%100+1;    /*  随机生成100以内的数字 */
@@ -247,10 +248,10 @@ void CreateSortedListTail(Linklist *L, int n) {
     *L = (Linklist)malloc(sizeof(List_Node));
     index = *L;
     int i;
-    
+    srand(time(0));  // 初始化随机数种子
     for(i = 0; i < n; i++){
         tmp = (Linklist)malloc(sizeof(List_Node));
-        srand(time(0));  // 初始化随机数种子
+        
         tmp->data =  sum + rand()%10+1;    /*  sum随机加10以内的数字 */
         sum = tmp->data;
         index->next = tmp;
@@ -271,13 +272,16 @@ Linklist* detectCycle(Linklist* head){
             return NULL;
         fast = fast->next->next;
         if(fast == slow){
-            static Linklist ptr = *head;
+            // static Linklist ptr = *head;
+            Linklist ptr = *head;
             while(ptr != slow){
                 ptr = ptr->next;
                 slow = slow->next;
             }
         
             return &ptr;
+
+
         }
     
     }
@@ -342,7 +346,7 @@ Linklist* reverseList_It(Linklist* head){
 Linklist* mergeTwoLists(Linklist* head1, Linklist* head2){
     Linklist prehead;
     InitList(&prehead);
-    static Linklist prev = prehead;
+    Linklist prev = prehead;
     Linklist l1 = (*head1)->next, l2 = (*head2)->next;
     while(l1 != NULL && l2 != NULL){
         if(l1->data <= l2->data){
@@ -406,8 +410,8 @@ Linklist* removeNthFromEnd(Linklist* head, int n){
         printf("removeNthFromEnd error!!!\n");
         exit(-1);
     }
-
-    for(int i = 0; i < n+1; i++){
+    int i;
+    for(    i = 0; i < n+1; i++){
         q = q->next;
     }
 
@@ -452,7 +456,7 @@ Linklist* removeNthFromEnd(Linklist* head, int n){
 // 快慢指针法
 // https://leetcode-cn.com/problems/middle-of-the-linked-list/solution/
 Linklist* middleNode(Linklist* head){
-    static Linklist slow = (*head);
+    Linklist slow = (*head);  // static
     Linklist fast = (*head);
 
     while(fast != NULL && fast->next != NULL){

@@ -5,9 +5,9 @@ INC = ./inc
 OBJ = ./obj
  
 #提前所有源文件(即：*.c文件)和所有中间文件(即：*.o)
-SOURCE = $(wildcard ${SRC}/*.cc \
-		$(wildcard ./*.cc) )
-OBJECT = $(patsubst %.cc,${OBJ}/%.o,$(notdir ${SOURCE}))
+SOURCE = $(wildcard ${SRC}/*.c \
+		$(wildcard ./*.c) )
+OBJECT = $(patsubst %.c,${OBJ}/%.o,$(notdir ${SOURCE}))
 OBJECTS = test
 
 
@@ -15,7 +15,7 @@ OBJECTS = test
  TARGET = $(OBJECTS)
  BIN_TARGET = $(BIN)/$(TARGET)
  
- CC = g++ 
+ CC = gcc 
  CFLAGS = -g -std=gnu++0x   -I$(INC)
  
 # 生成最后的可执行文件
@@ -23,10 +23,10 @@ $(BIN_TARGET):$(OBJECT)
 	$(CC)  -o $@ $(OBJECT)
 
 # 各文件单独编译
-$(OBJ)/%.o :$(SRC)/%.cc 
+$(OBJ)/%.o :$(SRC)/%.c 
 	$(CC) $(CFLAGS)  -c $< -o $@ 
-$(OBJ)/$(OBJECTS).o: ./$(OBJECTS).cc 
-	$(CC) $(CFLAGS) -o $@ -c $(OBJECTS).cc 
+$(OBJ)/$(OBJECTS).o: ./$(OBJECTS).c 
+	$(CC) $(CFLAGS) -o $@ -c $(OBJECTS).c
 
  .PHONY:clean
  clean:
