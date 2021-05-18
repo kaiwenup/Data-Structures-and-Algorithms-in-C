@@ -6,9 +6,10 @@
  * 参考教程：
  * （1）极客时间-数据结构与算法之美
  * （2）菜鸟教程-C排序算法 https://www.runoob.com/cprogramming/c-sort-algorithm.html
+ * （3）Wikipedia
  * **/
 
-/**一般选择插入排序而不是冒泡排序**/
+/**常用排序算法：快速排序**/
 
 /**冒泡排序
  * 最好情况时间复杂度：O(n)
@@ -99,7 +100,12 @@ void ShellSort(int* array, int n){
 }
 
 /**归并排序 递归法
- * **/
+* 最好情况时间复杂度：O(nlog(n))
+* 最坏情况时间复杂度：O(nlog(n))
+* 平均情况时间复杂度：O(nlog(n))
+* 非原地排序算法
+* 稳定排序算法
+* **/
 void MergeSortRecursive(int arr[], int reg[], int start, int end){
     if(start >= end)
         return;
@@ -139,9 +145,54 @@ void QuickSort(int* array, int n){
 
 }
 
+/**快速排序 迭代法
+ * **/
+void QuickSortRecursive(int* array, int start,int end){
+    if(start >= end)
+        return;
+    
+    int mid = array[end];
+    int left = start,
+        right = end-1;
+    
+    while(left < right){
+        while(array[left] < mid && left < right)  // 注意是<
+            left++;
+        while(array[right] >= mid && left < right)   // // 注意是>=
+            right--;
+        
+        int tmp = array[left];
+        array[left] = array[right];
+        array[right] = tmp;
+
+    }
+
+    if(array[left] > array[end]){
+        int tmp = array[left];
+        array[left] = array[end];
+        array[end] = tmp;
+    }else
+        left++;
+
+    if(left)
+        QuickSortRecursive(array, start, left-1);
+
+    QuickSortRecursive(array, left+1, end);
+    
+}
+
+void QuickSortRe(int array[], int len){
+    QuickSortRecursive(array, 0 , len-1);
+}
+
 void mysorted_demo(){
 
-    int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE];
+    srand((unsigned)time(NULL));
+
+    int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE];
+
+    int size = 100;
+    printf("生成一个%d以内的随机数：%d\n", size, GenRandomNum(size));
 
     printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
     GenRandomArray(array1, ARRAY_SIZE);
@@ -170,4 +221,13 @@ void mysorted_demo(){
     printf("归并排序(递归法)：\n", ARRAY_SIZE);
     MergeSortRe(array4, ARRAY_SIZE);
     ArrayTraverse(array4,ARRAY_SIZE);
+
+    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
+    GenRandomArray(array5, ARRAY_SIZE);
+    ArrayTraverse(array5,ARRAY_SIZE);
+    printf("快速排序(递归法)：\n", ARRAY_SIZE);
+    MergeSortRe(array5, ARRAY_SIZE);
+    ArrayTraverse(array5,ARRAY_SIZE);
+
+    
 }

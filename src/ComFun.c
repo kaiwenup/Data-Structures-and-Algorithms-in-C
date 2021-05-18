@@ -3,7 +3,7 @@
 // 随机生成n以内的随机数
 int GenRandomNum(int n){
 
-    srand((unsigned)time(NULL));
+    // srand((unsigned)time(NULL));
 
     return rand() % n + 1;
 }
@@ -12,7 +12,7 @@ int GenRandomNum(int n){
 void GenRandomArray(int* array, int n){
 
     // 按时间重新播种
-	srand((unsigned)time(NULL));
+	// srand((unsigned)time(NULL));
     int num;
     int i;
     for (i = 0; i < n; i++)

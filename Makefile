@@ -15,7 +15,7 @@ OBJECTS = test
  TARGET = $(OBJECTS)
  BIN_TARGET = $(BIN)/$(TARGET)
  
- CC = gcc 
+ CC = gcc # 编译器名字
  #CFLAGS = -g -std=gnu++0x   -I$(INC)
  CFLAGS = -g -std=c99 -I$(INC)
  

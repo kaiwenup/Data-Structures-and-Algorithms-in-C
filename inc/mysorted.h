@@ -11,7 +11,7 @@
 #include "time.h"
 
 
-#define ARRAY_SIZE 10
+#define ARRAY_SIZE 10 // 数组长度
 
 void BubbleSort(int* array, int n);
 void InsertSort(int* array, int n);
@@ -20,6 +20,8 @@ void ShellSort(int* array, int n);
 void QuickSort(int* array, int n);
 void MergeSortRecursive(int arr[], int reg[], int start, int end);
 void MergeSortRe(int arr[],const int len);
+void QuickSortRecursive(int* array, int start,int end);
+void QuickSortRe(int array[], int len);
 
 void mysorted_demo();
 
