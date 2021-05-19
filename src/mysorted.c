@@ -146,7 +146,12 @@ void QuickSort(int* array, int n){
 }
 
 /**快速排序 迭代法
- * **/
+* 最好情况时间复杂度：O(nlog(n))
+* 最坏情况时间复杂度：O(n^2)
+* 平均情况时间复杂度：O(nlog(n))
+* 原地排序算法
+* 非稳定排序算法
+* **/
 void QuickSortRecursive(int* array, int start,int end){
     if(start >= end)
         return;
@@ -185,11 +190,57 @@ void QuickSortRe(int array[], int len){
     QuickSortRecursive(array, 0 , len-1);
 }
 
+/**寻找第K个最大的元素
+* 时间复杂度：O(n)
+* 空间复杂度：O(log(n))
+* **/
+int partition(int array[], int left, int right){
+    int x = array[right], i = left-1;
+    int j;
+    for(j = left; j < right; ++j){
+        if(array[j] <= x){
+            int t = array[++i];
+            array[i] = array[j];array[j] = t;
+        }
+        
+    }
+
+    int t = array[i+1];
+    array[i+1] = array[right];array[right] = t;
+
+    return i+1; 
+}
+
+int randomPartition(int* array, int l, int r) {
+    int i = rand() % (r - l + 1) + l;
+    int t = array[i];
+    array[i] = array[r];array[r] = t;
+    return partition(array, l, r);
+}
+
+
+int QuickSelect(int array[], int left, int right, int index){
+    int q = randomPartition(array, left, right);
+    if (q == index) {
+        return array[q];
+    } else {
+        return q < index ? QuickSelect(array, q + 1, right, index)
+                         : QuickSelect(array, left, q - 1, index);
+    }
+
+}
+
+int FindKthlargest(int array[], int len, int k){
+    srand(time(0));
+    return QuickSelect(array, 0, len-1, len-k);
+}
+
 void mysorted_demo(){
 
-    srand((unsigned)time(NULL));
+    if(SRAND_BUTTON)
+        srand((unsigned)time(NULL));
 
-    int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE];
+    int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE], array6[ARRAY_SIZE];
 
     int size = 100;
     printf("生成一个%d以内的随机数：%d\n", size, GenRandomNum(size));
@@ -225,9 +276,20 @@ void mysorted_demo(){
     printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
     GenRandomArray(array5, ARRAY_SIZE);
     ArrayTraverse(array5,ARRAY_SIZE);
+    int k = 3;
+    int kth = FindKthlargest(array5, ARRAY_SIZE, k);
+    printf("第%d大的元素为(算法计算)%d：\n", k, kth);
+
     printf("快速排序(递归法)：\n", ARRAY_SIZE);
-    MergeSortRe(array5, ARRAY_SIZE);
+    QuickSortRe(array5, ARRAY_SIZE);
     ArrayTraverse(array5,ARRAY_SIZE);
+
+    if(kth == array5[ARRAY_SIZE-k])
+        printf("function find answer correct!\n");
+    else
+        printf("function find answer error!\n");
+
+    
 
     
 }
