@@ -7,11 +7,11 @@
 #include "stdlib.h"  
 #include <unistd.h> 
 
-#include "math.h"  
+#include <math.h>
 #include "time.h"
 
 
-#define ARRAY_SIZE 15 // 数组长度
+#define ARRAY_SIZE 6 // 数组长度
 #define SRAND_BUTTON 0
 
 void BubbleSort(int* array, int n);
@@ -27,6 +27,8 @@ int partition(int array[], int left, int right);
 int randomPartition(int* array, int l, int r);
 int QuickSelect(int array[], int left, int right, int index);
 int FindKthlargest(int array[], int len, int k);
+int BsearchRecursive(int array[], int left, int right, int val);
+int Bsearch(int array[], int len, int val);
 
 void mysorted_demo();
 

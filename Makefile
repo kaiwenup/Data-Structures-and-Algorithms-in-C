@@ -17,7 +17,7 @@ OBJECTS = test
  
  CC = gcc # 编译器名字
  #CFLAGS = -g -std=gnu++0x   -I$(INC)
- CFLAGS = -g -std=c99 -I$(INC)
+ CFLAGS = -g  -std=c99 -I$(INC)
  
 # 生成最后的可执行文件
 $(BIN_TARGET):$(OBJECT)

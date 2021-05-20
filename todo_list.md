@@ -1,2 +1,3 @@
 - 封装一个打印数据的函数
-git push -u origin master
+- Git提交指令
+    git push -u origin master

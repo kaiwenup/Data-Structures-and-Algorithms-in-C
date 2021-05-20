@@ -190,7 +190,7 @@ void QuickSortRe(int array[], int len){
     QuickSortRecursive(array, 0 , len-1);
 }
 
-/**寻找第K个最大的元素
+/**寻找第K个最大的元素，返回其值***********************************
 * 时间复杂度：O(n)
 * 空间复杂度：O(log(n))
 * **/
@@ -230,66 +230,108 @@ int QuickSelect(int array[], int left, int right, int index){
 
 }
 
+
 int FindKthlargest(int array[], int len, int k){
     srand(time(0));
+
+    if(k > len)
+        return -1;
     return QuickSelect(array, 0, len-1, len-k);
 }
+
+/**寻找数组第K大的元素，返回其值****************************/
+
+
+int cmp(const void *a, const void *b)
+{
+    return *(int*)a - *(int*)b; //由小到大排序
+    // return *(int *)b - *(int *)a; //由大到小排序
+}
+
+/**二分查找**/
+int BsearchRecursive(int array[], int left, int right, int val){
+    if(left > right)
+        return -1;
+    
+    int mid = left + ((right - left)>>1);
+    if(val == array[mid])
+        return mid;
+    else if(val > array[mid]){
+        BsearchRecursive(array, mid+1, right, val);
+    }else{
+        BsearchRecursive(array, left, mid, val);
+    }
+
+}
+int Bsearch(int array[], int len, int val){
+    return BsearchRecursive(array, 0, len-1, val);
+}
+
 
 void mysorted_demo(){
 
     if(SRAND_BUTTON)
         srand((unsigned)time(NULL));
 
-    int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE], array6[ARRAY_SIZE];
+    printf("生成元素个数为%d的一维数组：\n", ARRAY_SIZE);
+    int array[ARRAY_SIZE];
+    GenRandomArray(array, ARRAY_SIZE);
+    ArrayTraverse(array,ARRAY_SIZE);
 
-    int size = 100;
+    // 可以使用二维数组来批量生成多个一维数组
+    // int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE], array6[ARRAY_SIZE];
+    // memcpy(array1,array,sizeof(int)*ARRAY_SIZE);
+    // memcpy(array2,array,sizeof(int)*ARRAY_SIZE);
+    // memcpy(array3,array,sizeof(int)*ARRAY_SIZE);
+    // memcpy(array4,array,sizeof(int)*ARRAY_SIZE);
+    // memcpy(array5,array,sizeof(int)*ARRAY_SIZE);
+
+    int array_nums = 8;  // 用后续排序算法的一维数组的个数
+    int arr[array_nums][ARRAY_SIZE];  //二维数组来批量生成多个一维数组
+
+    int i;  
+    for(i = 0; i < array_nums; i++){
+        memcpy(arr[i],array,sizeof(int)*ARRAY_SIZE);
+    }
+    int size = 50;
     printf("生成一个%d以内的随机数：%d\n", size, GenRandomNum(size));
 
-    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
-    GenRandomArray(array1, ARRAY_SIZE);
-    ArrayTraverse(array1,ARRAY_SIZE);
     printf("冒泡排序：\n", ARRAY_SIZE);
-    BubbleSort(array1, ARRAY_SIZE);
-    ArrayTraverse(array1,ARRAY_SIZE);
+    BubbleSort(arr[0], ARRAY_SIZE);
+    ArrayTraverse(arr[0],ARRAY_SIZE);
 
-    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
-    GenRandomArray(array2, ARRAY_SIZE);
-    ArrayTraverse(array2,ARRAY_SIZE);
     printf("插入排序：\n", ARRAY_SIZE);
-    InsertSort(array2, ARRAY_SIZE);
-    ArrayTraverse(array2,ARRAY_SIZE);
+    InsertSort(arr[1], ARRAY_SIZE);
+    ArrayTraverse(arr[1],ARRAY_SIZE);
 
-    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
-    GenRandomArray(array3, ARRAY_SIZE);
-    ArrayTraverse(array3,ARRAY_SIZE);
     printf("选择排序：\n", ARRAY_SIZE);
-    InsertSort(array3, ARRAY_SIZE);
-    ArrayTraverse(array3,ARRAY_SIZE);
+    InsertSort(arr[2], ARRAY_SIZE);
+    ArrayTraverse(arr[2],ARRAY_SIZE);
 
-    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
-    GenRandomArray(array4, ARRAY_SIZE);
-    ArrayTraverse(array4,ARRAY_SIZE);
     printf("归并排序(递归法)：\n", ARRAY_SIZE);
-    MergeSortRe(array4, ARRAY_SIZE);
-    ArrayTraverse(array4,ARRAY_SIZE);
+    MergeSortRe(arr[3], ARRAY_SIZE);
+    ArrayTraverse(arr[3],ARRAY_SIZE);
 
-    printf("创建了一个长度为：%d的数列\n", ARRAY_SIZE);
-    GenRandomArray(array5, ARRAY_SIZE);
-    ArrayTraverse(array5,ARRAY_SIZE);
-    int k = 3;
-    int kth = FindKthlargest(array5, ARRAY_SIZE, k);
+    int k = 2; // 第k大的元素
+    int kth = FindKthlargest(arr[4], ARRAY_SIZE, k);
     printf("第%d大的元素为(算法计算)%d：\n", k, kth);
 
     printf("快速排序(递归法)：\n", ARRAY_SIZE);
-    QuickSortRe(array5, ARRAY_SIZE);
-    ArrayTraverse(array5,ARRAY_SIZE);
+    QuickSortRe(arr[4], ARRAY_SIZE);
+    ArrayTraverse(arr[4],ARRAY_SIZE);
 
-    if(kth == array5[ARRAY_SIZE-k])
+    printf("数组寻找第K大的元素验证：\n", ARRAY_SIZE);
+    if(kth == arr[4][ARRAY_SIZE-k])
         printf("function find answer correct!\n");
     else
         printf("function find answer error!\n");
 
-    
+    qsort(arr[5], ARRAY_SIZE, sizeof(arr[5][0]), cmp);
+    printf("快速排序(C语言库函数)：\n", ARRAY_SIZE);
+    ArrayTraverse(arr[5],ARRAY_SIZE);
+
+    int find_val = arr[5][3];
+    printf("二分法查找(递归法)元素为%d, 序号为：%d：\n", find_val, Bsearch(arr[5], ARRAY_SIZE,find_val));
 
     
 }

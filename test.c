@@ -2,7 +2,9 @@
 #include "inc/mystack.h"
 #include "inc/myLinkQueue.h"
 #include "inc/mysorted.h"
+#include "inc/myhash.h"
 #include "inc/ComFun.h"
+#include "inc/uthash.h"
 
 
 
@@ -20,7 +22,10 @@ int main()
     // myLinkQueue_demo();
 
     /******排序相关算法******/
-    mysorted_demo();
+    // mysorted_demo();
+
+    /******Hash相关算法******/
+    myhash_demo();
     
  
     return 0;
