@@ -4,7 +4,8 @@
 #include "inc/mysorted.h"
 #include "inc/myhash.h"
 #include "inc/ComFun.h"
-#include "inc/uthash.h"
+#include "inc/uthash/uthash.h"
+#include "time.h"
 
 
 
@@ -12,6 +13,9 @@
 
 int main() 
 {
+    if(SRAND_BUTTON)
+        srand((unsigned)time(NULL));
+
     /******单链表相关算法******/
     // single_list_demo();
 
@@ -25,7 +29,8 @@ int main()
     // mysorted_demo();
 
     /******Hash相关算法******/
-    myhash_demo();
+    // myhash_demo();
+    uthash_base_test();
     
  
     return 0;

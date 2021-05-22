@@ -270,8 +270,8 @@ int Bsearch(int array[], int len, int val){
 
 void mysorted_demo(){
 
-    if(SRAND_BUTTON)
-        srand((unsigned)time(NULL));
+    // if(SRAND_BUTTON)
+    //     srand((unsigned)time(NULL));
 
     printf("生成元素个数为%d的一维数组：\n", ARRAY_SIZE);
     int array[ARRAY_SIZE];

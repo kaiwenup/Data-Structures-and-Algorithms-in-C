@@ -12,7 +12,7 @@
 
 
 #define ARRAY_SIZE 6 // 数组长度
-#define SRAND_BUTTON 0
+#define SRAND_BUTTON 1
 
 void BubbleSort(int* array, int n);
 void InsertSort(int* array, int n);
