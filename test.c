@@ -30,7 +30,7 @@ int main()
 
     /******Hash相关算法******/
     // myhash_demo();
-    uthash_base_test();
+    isHappy();
     
  
     return 0;

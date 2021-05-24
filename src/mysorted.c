@@ -135,7 +135,7 @@ void MergeSortRecursive(int arr[], int reg[], int start, int end){
 }
 
 void MergeSortRe(int arr[],const int len){
-    int  reg[len];
+    int  reg[len]; //额外申请了空间，增加了内存消耗
     MergeSortRecursive(arr, reg, 0, len-1);
 }
 
