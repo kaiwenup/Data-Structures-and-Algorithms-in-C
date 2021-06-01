@@ -5,6 +5,7 @@
 #include "inc/myhash.h"
 #include "inc/ComFun.h"
 #include "inc/uthash/uthash.h"
+#include "inc/mybinarytree.h"
 #include "time.h"
 
 
@@ -29,8 +30,10 @@ int main()
     // mysorted_demo();
 
     /******Hash相关算法******/
-    // myhash_demo();
-    isHappy();
+    // hash_base_demo();
+
+    /******二叉树相关算法******/
+    mybinarytree_demo();
     
  
     return 0;

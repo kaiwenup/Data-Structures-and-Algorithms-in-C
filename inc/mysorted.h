@@ -21,6 +21,7 @@ void ShellSort(int* array, int n);
 void QuickSort(int* array, int n);
 void MergeSortRecursive(int arr[], int reg[], int start, int end);
 void MergeSortRe(int arr[],const int len);
+int Paritition1(int *array, int start, int end);
 void QuickSortRecursive(int* array, int start,int end);
 void QuickSortRe(int array[], int len);
 int partition(int array[], int left, int right);

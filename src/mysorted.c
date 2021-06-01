@@ -152,39 +152,71 @@ void QuickSort(int* array, int n){
 * 原地排序算法
 * 非稳定排序算法
 * **/
-void QuickSortRecursive(int* array, int start,int end){
-    if(start >= end)
-        return;
+// void QuickSortRecursive(int* array, int start,int end){
+//     if(start >= end)
+//         return;
     
-    int mid = array[end];
-    int left = start,
-        right = end-1;
+//     int mid = array[end];
+//     int left = start,
+//         right = end-1;
     
-    while(left < right){
-        while(array[left] < mid && left < right)  // 注意是<
-            left++;
-        while(array[right] >= mid && left < right)   // // 注意是>=
-            right--;
+//     while(left < right){
+//         while(array[left] <= mid && left < right)  // 注意是<
+//             left++;
+//         while(array[right] >= mid && left < right)   // // 注意是>=
+//             right--;
         
-        int tmp = array[left];
-        array[left] = array[right];
-        array[right] = tmp;
+//         int tmp = array[left];
+//         array[left] = array[right];
+//         array[right] = tmp;
 
+//     }
+
+//     // if(array[left] > array[end]){
+//     if(array[left] > array[end]){
+//         int tmp = array[left];
+//         array[left] = array[end];
+//         array[end] = tmp;
+//     }//else
+//        // left++;
+
+//     if(left)
+//         QuickSortRecursive(array, start, left-1);
+
+//     QuickSortRecursive(array, left+1, end);
+    
+// }
+
+int Paritition1(int *array, int start, int end){
+    int pivot = array[start];
+
+    while(start < end){
+        while(start < end && array[end] >= pivot)
+            --end;
+
+        array[start] = array[end];
+
+        while(start < end && array[start] <= pivot)
+            start++;
+
+        array[end] = array[start];
+        
     }
 
-    if(array[left] > array[end]){
-        int tmp = array[left];
-        array[left] = array[end];
-        array[end] = tmp;
-    }else
-        left++;
+    array[start] = pivot;
 
-    if(left)
-        QuickSortRecursive(array, start, left-1);
-
-    QuickSortRecursive(array, left+1, end);
-    
+    return start;
 }
+
+void QuickSortRecursive(int* array, int start,int end){
+
+    if(start < end){
+        int pivot = Paritition1(array, start, end);
+        QuickSortRecursive(array, start, pivot-1);
+        QuickSortRecursive(array, pivot+1, end);
+    }
+}
+
 
 void QuickSortRe(int array[], int len){
     QuickSortRecursive(array, 0 , len-1);
@@ -277,7 +309,8 @@ void mysorted_demo(){
     int array[ARRAY_SIZE];
     GenRandomArray(array, ARRAY_SIZE);
     ArrayTraverse(array,ARRAY_SIZE);
-
+    // int arr1[6] = {4,3,6,7,4,4};
+    int arr1[6] = {65,35,60,49,2,12};
     // 可以使用二维数组来批量生成多个一维数组
     // int array1[ARRAY_SIZE], array2[ARRAY_SIZE], array3[ARRAY_SIZE], array4[ARRAY_SIZE], array5[ARRAY_SIZE], array6[ARRAY_SIZE];
     // memcpy(array1,array,sizeof(int)*ARRAY_SIZE);
@@ -313,12 +346,14 @@ void mysorted_demo(){
     ArrayTraverse(arr[3],ARRAY_SIZE);
 
     int k = 2; // 第k大的元素
-    int kth = FindKthlargest(arr[4], ARRAY_SIZE, k);
+    int kth = FindKthlargest(arr[3], ARRAY_SIZE, k);
     printf("第%d大的元素为(算法计算)%d：\n", k, kth);
 
     printf("快速排序(递归法)：\n", ARRAY_SIZE);
     QuickSortRe(arr[4], ARRAY_SIZE);
+    // QuickSortRe(arr1, ARRAY_SIZE);
     ArrayTraverse(arr[4],ARRAY_SIZE);
+    // ArrayTraverse(arr1,ARRAY_SIZE);
 
     printf("数组寻找第K大的元素验证：\n", ARRAY_SIZE);
     if(kth == arr[4][ARRAY_SIZE-k])

@@ -31,5 +31,6 @@ $(OBJ)/$(OBJECTS).o: ./$(OBJECTS).c
 
  .PHONY:clean
  clean:
-	find $(OBJ) -name *.o -exec rm -rf {} \; 
+	find $(OBJ) -name *.o  -exec rm -rf {} \; 
 	rm -rf $(BIN_TARGET)
+	rm -rf *.dot
