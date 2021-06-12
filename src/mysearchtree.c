@@ -139,6 +139,7 @@ SearchTree SearchTreeDelete(NodeType val, SearchTree T){
 }
 
 
+
 /* 初始条件: 二叉树T存在 */
 /* 操作结果: 中序递归遍历T */
 void InOrderTraverse(SearchTree T){ 
