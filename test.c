@@ -5,7 +5,7 @@
 #include "inc/myhash.h"
 #include "inc/ComFun.h"
 #include "inc/uthash/uthash.h"
-#include "inc/mybinarytree.h"
+#include "inc/mysearchtree.h"
 #include "inc/exptree.h"
 #include "time.h"
 
@@ -31,9 +31,10 @@ int main()
 
     /******二叉树相关算法******/
     // 二叉搜索树
-    // mybinarytree_demo();
+    MySearchTreeDemo();
     // 表达式树
-    ExpressionTree();
+    // ExpressionTree();
+
     
  
     return 0;
