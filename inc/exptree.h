@@ -35,7 +35,7 @@ typedef struct ExpStackNode{
 typedef struct{
     StackPtr top;
     int count;
-}ExpLinkStack;
+}ExpLinkStack, *ExpLinkStackPtr;
 
 typedef int Status;
 typedef ExpTree ExpElemType;
@@ -43,15 +43,15 @@ typedef ExpTree ExpElemType;
 
 char *my_itoa(int num, char *str);
 // 构造堆栈
-Status InitExpStack(ExpLinkStack* S);
-void CreateExpStack(ExpLinkStack* S, int val);
-Status ClearExpStack(ExpLinkStack* S);
+Status InitExpStack(ExpLinkStackPtr S);
+void CreateExpStack(ExpLinkStackPtr S, int val);
+Status ClearExpStack(ExpLinkStackPtr S);
 ExpElemType GetExpTop(ExpLinkStack S);
 Status TraverseExpStack(ExpLinkStack S);
 Status IsExpEmpty(ExpLinkStack S);
 int GetExpLength(ExpLinkStack S);
-Status ExpPush(ExpLinkStack *S, ExpElemType elem);
-ExpElemType ExpPop(ExpLinkStack *S);
+Status ExpPush(ExpLinkStackPtr S, ExpElemType elem);
+ExpElemType ExpPop(ExpLinkStackPtr S);
 Status IsExpEmpty(ExpLinkStack S);
 
 // 构造二叉树

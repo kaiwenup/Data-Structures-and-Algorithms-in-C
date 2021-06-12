@@ -15,24 +15,30 @@
 #define MAX_TREE_NODES (1 << 8)
 #define Bi_ARRAY_SIZE 10
 
-typedef struct _treenode{
-    int data;
-    struct _treenode *lchild;
-    struct _treenode *rchild;
-    
-} BiTNode,  *BiTree;
-
 typedef int TElemType;
+typedef int NodeType;
 
-void InitBiTree(BiTree *root);
-void BiTreeInsert(BiTree *tree, int value);
-void DestroyBitree(BiTree *root);
-int BiTreeEmpty(BiTree root);
-void InOrderTraverse(BiTree root);
+typedef struct Treenode{
+    NodeType data;
+    struct Treenode *lchild;
+    struct Treenode *rchild;
+    
+} BiTNode, *SearchTree, *Position;
+
+
+SearchTree SearchTreeMakeEmpty(SearchTree T);
+Position SearchTreeFind(NodeType val, SearchTree T);
+Position SearchTreeFinMin(SearchTree T);
+Position SearchTreeFindMax(SearchTree T);
+SearchTree SearchTreeInsert(NodeType val, SearchTree T);
+SearchTree SearchTreeDelete(NodeType val, SearchTree T);
+void DestroySearchTree(SearchTree T);
+void InOrderTraverse(SearchTree root);
+
+void visualization(SearchTree tree, char *filename);
+void write2dot(SearchTree tree, FILE *fw);
+
 void mybinarytree_demo();
-
-void visualization(BiTree tree, char *filename);
-void write2dot(BiTree tree, FILE *fw);
-
+void MySearchTreeDemo();
 
 #endif

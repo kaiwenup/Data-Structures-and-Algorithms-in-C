@@ -32,8 +32,10 @@ int main()
     /******二叉树相关算法******/
     // 二叉搜索树
     // mybinarytree_demo();
+    MySearchTreeDemo();
     // 表达式树
-    ExpressionTree();
+    // ExpressionTree();
+
     
  
     return 0;

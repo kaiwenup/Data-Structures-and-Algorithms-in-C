@@ -30,7 +30,7 @@ void ExpTreeInsert(ExpTree *tree, char* value){
 			printf("insert malloc error\n");
 			exit(-1);
 		}
-		// (*tree)->data = value;
+		// (*tree)->data = value;  // 错误写法
         strcpy((*tree)->data,value);
 		(*tree)->lchild = (*tree)->rchild = NULL;
 	}
@@ -99,30 +99,27 @@ void InOrderExpTreeTraverse(ExpTree *tree){
     {
     case '+':
         tmp = atoi((*tree)->lchild->data) + atoi((*tree)->rchild->data); // 字符串转成整型计算
-        // (*tree)->data = my_itoa(tmp, str);  // 整型转成字符串
+        // my_itoa(tmp, str);  // 整型转成字符串
         snprintf (str, sizeof(str), "%d",tmp);
-        // (*tree)->data = str;
+        // (*tree)->data = str;  // 错误写法
         strcpy((*tree)->data,str);
         break;
     case '-':
         tmp = atoi((*tree)->lchild->data) - atoi((*tree)->rchild->data); // 字符串转成整型计算
-        // (*tree)->data = my_itoa(tmp, str);  // 整型转成字符串
+        // my_itoa(tmp, str);  // 整型转成字符串
         snprintf (str, sizeof(str), "%d",tmp);
-        // (*tree)->data = str;
         strcpy((*tree)->data,str);
         break;
     case '*':
         tmp = atoi((*tree)->lchild->data) * atoi((*tree)->rchild->data); // 字符串转成整型计算
-        // (*tree)->data = my_itoa(tmp, str);  // 整型转成字符串
+        // my_itoa(tmp, str);  // 整型转成字符串
         snprintf (str, sizeof(str), "%d",tmp);
-        // (*tree)->data = str;
         strcpy((*tree)->data,str);
         break;
     case '/':
         tmp = atoi((*tree)->lchild->data) / atoi((*tree)->rchild->data); // 字符串转成整型计算
-        // (*tree)->data = my_itoa(tmp, str);  // 整型转成字符串
+        // my_itoa(tmp, str);  // 整型转成字符串
         snprintf (str, sizeof(str), "%d",tmp);
-        // (*tree)->data = str;
         strcpy((*tree)->data,str);
         break;
     }
@@ -130,11 +127,11 @@ void InOrderExpTreeTraverse(ExpTree *tree){
     
 }
 
+// 《数据结构与算法分析-C语言描述》4.2.2
 void ExpressionTree(){
 
     int i;
     char* leaves[] = {"1", "2", "+", "3", "4", "5", "+", "*", "*"};
-    // char* leaves[] = {"1", "4", "+"};
     // 构造二叉树
     ExpTree exptree[ExpSIZE];
     ExpTree exp_tree_final;
@@ -144,7 +141,10 @@ void ExpressionTree(){
     InitExpStack(&expstack); // 初始化堆栈
 
     for(i = 0; i < ExpSIZE; i++){
-        InitExpTree(&exptree[i]);
+        InitExpTree(&exptree[i]);  
+        /** 在这里用到了二级指针，被一级指针指向的实体是ExpTNode，然后*ExpTree指向ExpTNode这个实体
+         *  
+        */
         ExpTreeInsert(&exptree[i], leaves[i]);
 
         if(isNumber(exptree[i]->data)){
@@ -160,7 +160,6 @@ void ExpressionTree(){
     
     
     exp_tree_final = ExpPop(&expstack);
-    
     InOrderExpTreeTraverse(&exp_tree_final);
     
     printf("%d\n", atoi(exp_tree_final->data));
