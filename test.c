@@ -1,5 +1,6 @@
 #include "inc/mylist.h"
 #include "inc/mystack.h"
+#include "inc/myheap.h"
 #include "inc/myLinkQueue.h"
 #include "inc/mysorted.h"
 #include "inc/myhash.h"
@@ -31,9 +32,12 @@ int main()
 
     /******二叉树相关算法******/
     // 二叉搜索树
-    MySearchTreeDemo();
+    // MySearchTreeDemo();
     // 表达式树
     // ExpressionTree();
+
+    /******堆相关算法******/
+    PriorityQueueDemo();
 
     
  
