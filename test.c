@@ -8,6 +8,8 @@
 #include "inc/uthash/uthash.h"
 #include "inc/mysearchtree.h"
 #include "inc/exptree.h"
+#include "inc/cgrammar.h"
+#include "inc/mygragh.h"
 #include "time.h"
 
 int main() 
@@ -15,6 +17,8 @@ int main()
     if(SRAND_BUTTON)
         srand((unsigned)time(NULL));
 
+    // C语言语法
+    CGrammarDemo();
     /******单链表相关算法******/
     // single_list_demo();
 
@@ -37,9 +41,10 @@ int main()
     // ExpressionTree();
 
     /******堆相关算法******/
-    PriorityQueueDemo();
+    // PriorityQueueDemo();
 
-    
+    /******图论算法******/
+    GraghDemo();
  
     return 0;
 }

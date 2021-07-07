@@ -42,7 +42,7 @@ typedef ExpTree ExpElemType;
 
 
 char *my_itoa(int num, char *str);
-// 构造堆栈
+// 构造栈
 Status InitExpStack(ExpLinkStackPtr S);
 void CreateExpStack(ExpLinkStackPtr S, int val);
 Status ClearExpStack(ExpLinkStackPtr S);

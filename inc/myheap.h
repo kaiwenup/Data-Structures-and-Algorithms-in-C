@@ -13,8 +13,8 @@
 
 #define MinPQSize (10)
 #define MinData (-32767)
-#define MaxSize (1000)
-/**堆的相关算法**/
+#define MaxSize (100)
+/**二叉堆的相关算法**/
 
 typedef int HeapElementType;
 

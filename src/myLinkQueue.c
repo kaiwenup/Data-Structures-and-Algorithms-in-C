@@ -137,7 +137,7 @@ void base_queue_demo(){
 int myLinkQueue_demo(){
     
     base_queue_demo();
-    // 循环队列、阻塞队列、并发队列、无锁并发队列
+    // 待完成：循环队列、阻塞队列、并发队列、无锁并发队列
     return 0;
 
 }

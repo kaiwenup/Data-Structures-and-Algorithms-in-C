@@ -1,15 +1,18 @@
 #include "../inc/myheap.h"
 
 
-
+// 检查二叉堆元素个数是否到达最大值
 int PriorityQueueIsFull(PriorityQueue H){
     
     return H->Size == H->Capacity;
 }
 
+// 检查二叉堆元素个数是否为空
 int PriorityQueueIsEmpty(PriorityQueue H){
     return H->Size == 0;
 }
+
+// 初始化MaxElement个节点的二叉堆
 PriorityQueue PriorityQueueInitialize(int MaxElement){
 
     PriorityQueue H;
@@ -24,7 +27,8 @@ PriorityQueue PriorityQueueInitialize(int MaxElement){
         printf("Out of space!!!");
     }
 
-    H->Element = malloc( (MaxElement+1) * sizeof(HeapStruct) );
+    // H->Element = malloc( (MaxElement+1) * sizeof(HeapStruct) ); // 错误写法
+    H->Element = malloc( (MaxElement+1) * sizeof(HeapElementType) );
 
     if(H->Element == NULL){
         printf("Out of space!!!");
@@ -37,6 +41,7 @@ PriorityQueue PriorityQueueInitialize(int MaxElement){
     return H;
 }
 
+// 将一个元素插入到二叉堆
 // 上滤(percolate up)
 void PriorityQueueInsert(HeapElementType num, PriorityQueue H){
 
@@ -58,6 +63,7 @@ void PriorityQueueInsert(HeapElementType num, PriorityQueue H){
 
 }
 
+// 删除最小元并返回其数值
 // 下滤(percolate down)
 HeapElementType PriorityQueueDeleteMin(PriorityQueue H){
     int i, Child;
@@ -93,6 +99,7 @@ HeapElementType PriorityQueueDeleteMin(PriorityQueue H){
     
 }
 
+// 返回二叉堆最小值
 HeapElementType PriorityQueueFindMin(PriorityQueue H){
 
     if(! PriorityQueueIsEmpty(H)){
@@ -103,29 +110,29 @@ HeapElementType PriorityQueueFindMin(PriorityQueue H){
     return H->Element[0];
 }
 
+// 销毁整个二叉堆
 void PriorityQueueDestroy(PriorityQueue H){
 
     free(H->Element);
     free(H);
 }
 
+// 二叉堆元素个数清零
 void PriorityQueueMakeEmpty(PriorityQueue H){
     H->Size = 0;
 }
 
+// 二叉堆相关函数使用例程
 void PriorityQueueDemo(){
     PriorityQueue H;
     int i, j;
 
     H = PriorityQueueInitialize(MaxSize);
 
-    int AddData[4] = {3,5,6,2};
     for( i=0, j=MaxSize/2; i<MaxSize; i++, j=( j+71)%MaxSize ){
         printf("input [%d] data is %d\n", i,  j);
         PriorityQueueInsert( j, H );
     }
-    // for(i = 0; i < 4; i++)
-        // PriorityQueueInsert( AddData[i], H );
         
 
     int mindata ;
