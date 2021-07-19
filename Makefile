@@ -3,7 +3,8 @@ BIN = .
 SRC = ./src
 INC = ./inc
 OBJ = ./obj
- 
+CROSS_COMPILE ?= # 编译器路径
+
 #提前所有源文件(即：*.c文件)和所有中间文件(即：*.o)
 SOURCE = $(wildcard ${SRC}/*.c \
 		$(wildcard ./*.c) )
@@ -15,9 +16,9 @@ OBJECTS = test
  TARGET = $(OBJECTS)
  BIN_TARGET = $(BIN)/$(TARGET)
  
- CC = gcc # 编译器名字
+ CC = $(CROSS_COMPILE)gcc # 编译器名字
  #CFLAGS = -g -std=gnu++0x   -I$(INC)
- CFLAGS = -g  -std=c99 -I$(INC)
+ CFLAGS = -O2 -Wall -Wextra -g  -std=c99 -I$(INC)
  
 # 生成最后的可执行文件
 $(BIN_TARGET):$(OBJECT)
