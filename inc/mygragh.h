@@ -47,6 +47,7 @@ typedef struct AdjListGragh{
 
 void CreateAdjMT(PriorityAdjMTGragh G);
 void CreateAdjMT_2(PriorityAdjMTGragh G);
+void CreateAdjMT_Weight(PriorityAdjMTGragh G);
 void CreateAdjList(PriorityAdjListGragh G);
 void CreateALGraph(AdjMTGraghGragh G, PriorityAdjListGragh GL);
 
@@ -57,6 +58,9 @@ void AdjMTDFSTraverse(AdjMTGraghGragh G);
 /* 邻接表的深度优先递归算法 */
 void AdjListDFS(AdjListGragh GL, int i);
 void AdjListDFSTraverse(AdjListGragh GL);
+
+/*Prim算法生成最小生成树*/
+void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G);
 
 int GraghDemo();
 

@@ -90,6 +90,62 @@ void CreateAdjMT_2(PriorityAdjMTGragh G){
 	}
 }
 
+// 带权重的非完全无向图
+void CreateAdjMT_Weight(PriorityAdjMTGragh G){
+
+    int i, j;
+
+	/* printf("请输入边数和顶点数:"); */
+	G->NumEdges=15;
+	G->NumNodes=9;
+
+    G->vexs[0]='A';
+	G->vexs[1]='B';
+	G->vexs[2]='C';
+	G->vexs[3]='D';
+	G->vexs[4]='E';
+	G->vexs[5]='F';
+	G->vexs[6]='G';
+	G->vexs[7]='H';
+	G->vexs[8]='I';
+
+	for (i = 0; i < G->NumNodes; i++)/* 初始化图 */
+	{
+		for ( j = 0; j < G->NumNodes; j++)
+		{
+			if (i==j)
+				G->arc[i][j]=0;
+			else
+				G->arc[i][j] = G->arc[j][i] = GRAPH_INFINITY;
+		}
+	}
+
+	G->arc[0][1]=10;
+	G->arc[0][5]=11; 
+	G->arc[1][2]=18; 
+	G->arc[1][8]=12; 
+	G->arc[1][6]=16; 
+	G->arc[2][8]=8; 
+	G->arc[2][3]=22; 
+	G->arc[3][8]=21; 
+	G->arc[3][6]=24; 
+	G->arc[3][7]=16;
+	G->arc[3][4]=20;
+	G->arc[4][7]=7; 
+	G->arc[4][5]=26; 
+	G->arc[5][6]=17; 
+	G->arc[6][7]=19; 
+
+	for(i = 0; i < G->NumNodes; i++)
+	{
+		for(j = i; j < G->NumNodes; j++)
+		{
+			G->arc[j][i] =G->arc[i][j];
+		}
+	}
+
+}
+
 // 邻接表初始化图
 void CreateAdjList(PriorityAdjListGragh G){
     int i, j, k;
@@ -164,7 +220,7 @@ void CreateALGraph(AdjMTGraghGragh G, PriorityAdjListGragh GL){
 
 
 /** 邻接矩阵实现深度优先遍历算法 **/
-// 深度优先遍历 Depth First Search
+// 深度优先遍历 Depth First Search(DFS)
 // 邻接矩阵的深度优先递归算法
 void AdjMTDFS(AdjMTGraghGragh G, int i){
 
@@ -228,7 +284,7 @@ void AdjListDFSTraverse(AdjListGragh GL){
 }
 
 /**邻接矩阵的广度遍历算法**/
-// 广度优先遍历 Breadth Frist Search
+// 广度优先遍历 Breadth Frist Search(BFS)
 void AdjMTBFSTraverse(AdjMTGraghGragh G){
 
     int i, j;
@@ -268,7 +324,7 @@ void AdjMTBFSTraverse(AdjMTGraghGragh G){
     }
 }
 
-
+/**邻接表的广度遍历算法**/
 void AdjListBFSTraverse(AdjListGragh GL){
     int i;
 
@@ -319,6 +375,64 @@ void AdjListBFSTraverse(AdjListGragh GL){
 
 }
 
+/*Prim算法生成最小生成树 - 邻接矩阵实现*/
+void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
+
+    int min; // 暂存最小值 
+    int k;   // 暂存对应的节点
+    int i, j ; 
+
+    int adjvex[MAXVEX]; // 保存相关顶点坐标
+    int lowcost[MAXVEX]; // 保存相关顶点间边的权值
+
+    adjvex[0] = 0;
+    lowcost[0] = 0;
+
+    for(i = 1; i < G.NumNodes; i++){
+        
+        lowcost[i] = G.arc[0][i];
+        adjvex[i] = 0;
+
+    }
+
+    for(i = 1; i < G.NumNodes; i++){
+
+        min = GRAPH_INFINITY;
+        j = 1; k = 0;
+
+        while(j < G.NumNodes){
+
+            if(lowcost[j] != 0 && lowcost[j] < min){
+
+                min = lowcost[j];
+                k = j;
+
+            }
+
+            j++;
+        }
+
+
+        printf("(%d, %d) -> ", adjvex[k], k);
+
+        lowcost[k] = 0;
+
+        for(j = 1; j < G.NumNodes; j++){
+
+            if(lowcost[j] != 0 && G.arc[k][j] < lowcost[j]){
+
+                lowcost[j] = G.arc[k][j];
+                adjvex[j] = k;
+            }
+        }
+
+
+        
+    }
+
+
+}
+
 
 int GraghDemo(){
 
@@ -351,6 +465,17 @@ int GraghDemo(){
     // 邻接表广度优先遍历
     printf("邻接表广度优先遍历\n");
     AdjListBFSTraverse(AdjList);
+    printf("\n");
+
+
+    /*Prim算法生成最小生成树 - 邻接矩阵实现*/
+    printf("Prim算法生成最小生成树 - 邻接矩阵实现\n");
+    AdjMTGraghGragh AdjMTG2;
+    CreateAdjMT_Weight(&AdjMTG2);
+    // AdjMTDFSTraverse(AdjMTG2);
+
+    AdjMT_MibuSpanTree_Prim(AdjMTG2);
+    printf("end");
     printf("\n");
 
 
