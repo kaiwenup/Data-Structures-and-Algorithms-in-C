@@ -268,7 +268,6 @@ void AdjListDFS(AdjListGragh GL, int i){
     }
 }
 
-
 void AdjListDFSTraverse(AdjListGragh GL){
     int i;
     for(i = 0; i < GL.numNodes; i++){
@@ -375,8 +374,8 @@ void AdjListBFSTraverse(AdjListGragh GL){
 
 }
 
-/*Prim算法生成最小生成树 - 邻接矩阵实现*/
-void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
+/*普里姆(Prim)算法生成最小生成树 - 邻接矩阵实现*/
+int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
 
     int min; // 暂存最小值 
     int k;   // 暂存对应的节点
@@ -384,6 +383,8 @@ void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
 
     int adjvex[MAXVEX]; // 保存相关顶点坐标
     int lowcost[MAXVEX]; // 保存相关顶点间边的权值
+
+    int TotalWeight = 0;
 
     adjvex[0] = 0;
     lowcost[0] = 0;
@@ -413,7 +414,8 @@ void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
         }
 
 
-        printf("(%d, %d) -> ", adjvex[k], k);
+        TotalWeight += min;
+        printf("(%d, %d | weight: %2d) -> ", adjvex[k], k, min);
 
         lowcost[k] = 0;
 
@@ -431,8 +433,103 @@ void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
     }
 
 
+    return TotalWeight;
+
 }
 
+
+/*克鲁斯卡尔(Kruskal)算法生成最小生成树 - 邻接矩阵实现*/
+void EdgeArraySwapn(PtrEdgeArray edges, int i, int j){
+    int temp;
+
+	temp = edges[i].begin;
+	edges[i].begin = edges[j].begin;
+	edges[j].begin = temp;
+	temp = edges[i].end;
+	edges[i].end = edges[j].end;
+	edges[j].end = temp;
+	temp = edges[i].weight;
+	edges[i].weight = edges[j].weight;
+	edges[j].weight = temp;
+
+
+}
+
+void EdgeArraySort(PtrEdgeArray edges , int k){
+
+    int i, j;
+
+    for(i = 0; i < k; i++){
+        for(j = i+1; j < k; j++){
+            if(edges[i].weight > edges[j].weight){
+                EdgeArraySwapn(edges, i, j);
+            }
+        }
+    }
+
+    // printf("权排序之后的为:\n");
+	for (i = 0; i < k; i++)
+	{
+		// printf("(%d, %d) %d\n", edges[i].begin, edges[i].end, edges[i].weight);
+	}
+
+}
+
+// 查找连线顶点的尾部下标
+int ParentFind(int *parent, int f){
+
+    while(parent[f] > 0)
+        f = parent[f];
+
+    return f;
+        
+
+}
+
+// Kruskal算法生成最小生成树
+int AdjMT_MiniSpanTree_Kruskal(AdjMTGraghGragh G){
+
+    int i, j , n , m;
+    int k = 0;
+    int TotalWeight = 0;
+    int parent[MAXVEX]; // 定义一数组用来判断边与边是否形成环路
+    EdgeArray edges[MAXEDGE]; //定义边集数组,edge的结构为begin,end,weight,均为整型
+    
+    // 构建边集数组
+    for(i = 0; i < G.NumNodes; i++){
+        for(j = i+1; j < G.NumNodes; j++){
+            if(G.arc[i][j] < GRAPH_INFINITY){
+                edges[k].begin = i;
+                edges[k].end = j;
+                edges[k].weight = G.arc[i][j];
+                k++;
+            }
+        }
+    }
+
+    // 根据权重给边集数组排序
+    EdgeArraySort(edges, k);
+
+
+    // 初始化parent数组
+    for(i = 0; i < k; i++){
+        parent[i] = 0;
+    }
+
+
+    for(i = 0; i < k; i++){
+        n = ParentFind(parent, edges[i].begin);
+        m = ParentFind(parent, edges[i].end);
+
+        if(m != n){  // 假如n与m不等，说明此边没有与现有的生成树形成环路
+            parent[n] = m; // 将此边的结尾顶点放入下标为起点的parent中, 表示此顶点已经在生成树集合中
+            printf("(%d, %d | weight: %2d) -> ", edges[i].begin, edges[i].end, edges[i].weight);
+            TotalWeight += edges[i].weight;
+        }
+    }
+
+    return TotalWeight;
+}
 
 int GraghDemo(){
 
@@ -472,10 +569,19 @@ int GraghDemo(){
     printf("Prim算法生成最小生成树 - 邻接矩阵实现\n");
     AdjMTGraghGragh AdjMTG2;
     CreateAdjMT_Weight(&AdjMTG2);
-    // AdjMTDFSTraverse(AdjMTG2);
 
-    AdjMT_MibuSpanTree_Prim(AdjMTG2);
-    printf("end");
+    // AdjMTDFSTraverse(AdjMTG2);
+    int TotalWeight = 0;
+    TotalWeight = AdjMT_MibuSpanTree_Prim(AdjMTG2);
+    printf("end\n");
+    printf("Prim Algorithm Total weight is %d", TotalWeight);
+    printf("\n");
+
+    /*Kruskal算法生成最小生成树 - 邻接矩阵实现*/
+    printf("Kruskal算法生成最小生成树 - 邻接矩阵实现\n");
+    TotalWeight = AdjMT_MiniSpanTree_Kruskal(AdjMTG2);
+    printf("end\n");
+    printf("Kruskal Algorithm Total weight is %d", TotalWeight);
     printf("\n");
 
 

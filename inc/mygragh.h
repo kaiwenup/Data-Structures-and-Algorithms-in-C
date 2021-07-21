@@ -3,6 +3,7 @@
 
 #define MAXVEX 100 /* 最大顶点数，应由用户定义 */
 #define GRAPH_INFINITY 65535 /* 用65535来代表∞ */
+#define MAXEDGE 100 /* 边集数组大小，应由用户定义 */
 
 
 /** 邻接矩阵(Adjacency Matrix 缩写: AdjMT) **/
@@ -43,6 +44,12 @@ typedef struct AdjListGragh{
 } AdjListGragh, *PriorityAdjListGragh;
 
 
+// 对边集数组Edge结构的定义
+typedef struct {
+    int begin;
+    int end;
+    int weight;
+} EdgeArray,  *PtrEdgeArray;
 
 
 void CreateAdjMT(PriorityAdjMTGragh G);
@@ -60,7 +67,9 @@ void AdjListDFS(AdjListGragh GL, int i);
 void AdjListDFSTraverse(AdjListGragh GL);
 
 /*Prim算法生成最小生成树*/
-void AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G);
+int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G);
+
+int AdjMT_MiniSpanTree_Kruskal(AdjMTGraghGragh G);
 
 int GraghDemo();
 
