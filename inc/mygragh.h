@@ -1,6 +1,8 @@
 #ifndef MYGRAGH_H
 #define MYGRAGH_H
 
+#include "../inc/fatal.h"
+
 #define MAXVEX 100 /* 最大顶点数，应由用户定义 */
 #define GRAPH_INFINITY 65535 /* 用65535来代表∞ */
 #define MAXEDGE 100 /* 边集数组大小，应由用户定义 */

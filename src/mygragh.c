@@ -380,28 +380,32 @@ int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
     int min; // 暂存最小值 
     int k;   // 暂存对应的节点
     int i, j ; 
+    int TotalWeight = 0;
 
     int adjvex[MAXVEX]; // 保存相关顶点坐标
     int lowcost[MAXVEX]; // 保存相关顶点间边的权值
 
-    int TotalWeight = 0;
+    int begin_point = 0; // 设置遍历图的起始点
 
-    adjvex[0] = 0;
-    lowcost[0] = 0;
+    if(begin_point > G.NumNodes)
+        Error("Begin_point Out of Size");
 
-    for(i = 1; i < G.NumNodes; i++){
+    adjvex[begin_point] = 0;
+    lowcost[begin_point] = 0;
+
+    for(i = 0; (i == begin_point ? i++ : i) < G.NumNodes; i++){
         
-        lowcost[i] = G.arc[0][i];
-        adjvex[i] = 0;
+        lowcost[i] = G.arc[begin_point][i];
+        adjvex[i] = begin_point;
 
     }
 
-    for(i = 1; i < G.NumNodes; i++){
+    for(i = 0; (i == begin_point ? i++ : i) < G.NumNodes; i++){
 
         min = GRAPH_INFINITY;
-        j = 1; k = 0;
+        k = 0;
 
-        while(j < G.NumNodes){
+        for(j = 0; (j == begin_point ? j++ : j) < G.NumNodes; j++){
 
             if(lowcost[j] != 0 && lowcost[j] < min){
 
@@ -410,7 +414,6 @@ int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
 
             }
 
-            j++;
         }
 
 
@@ -419,7 +422,7 @@ int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
 
         lowcost[k] = 0;
 
-        for(j = 1; j < G.NumNodes; j++){
+        for(j = 0; (j == begin_point ? j++ : j) < G.NumNodes; j++){
 
             if(lowcost[j] != 0 && G.arc[k][j] < lowcost[j]){
 
@@ -427,9 +430,7 @@ int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
                 adjvex[j] = k;
             }
         }
-
-
-        
+      
     }
 
 
