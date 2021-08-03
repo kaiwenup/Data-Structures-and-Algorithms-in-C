@@ -1,3 +1,5 @@
+#include "limits.h"
+
 #include "../inc/cgrammar.h"
 
 void CGrammarDemo(){
@@ -25,6 +27,11 @@ void CGrammarDemo(){
     thisline2->contents = (char*)malloc(sizeof(char)*this_length);
     memset(thisline2->contents, 'a', this_length);
 
+    // 枚举
+    enum Jar_Type {
+        CUP = 1, PINT, QUART , GALLON
+    };
 
+    printf("%d\n", INT_MIN);
 
 }

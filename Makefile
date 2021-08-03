@@ -19,7 +19,7 @@ OBJECTS = test
  CC = $(CROSS_COMPILE)gcc # 编译器名字
 #  CFLAGS = -g -std=gnu++0x   -I$(INC) # 输出error信息
 #  CFLAGS = -O1 -Wall -Wextra -g  -std=c99 -I$(INC) # 输出warning和error信息
-CFLAGS = -O1 -Wextra -g  -std=c99 -I$(INC)
+CFLAGS = -O0 -Wextra -g  -std=c99 -I$(INC)
  
 # 生成最后的可执行文件
 $(BIN_TARGET):$(OBJECT)

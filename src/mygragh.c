@@ -385,7 +385,7 @@ int AdjMT_MibuSpanTree_Prim(AdjMTGraghGragh G){
     int adjvex[MAXVEX]; // 保存相关顶点坐标
     int lowcost[MAXVEX]; // 保存相关顶点间边的权值
 
-    int begin_point = 0; // 设置遍历图的起始点
+    int begin_point = 3; // 设置遍历图的起始点
 
     if(begin_point > G.NumNodes)
         Error("Begin_point Out of Size");

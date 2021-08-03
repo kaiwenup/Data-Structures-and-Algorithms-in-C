@@ -10,6 +10,8 @@
 #include "inc/exptree.h"
 #include "inc/cgrammar.h"
 #include "inc/mygragh.h"
+#include "inc/myStringMatch.h"
+
 #include "time.h"
 
 int main() 
@@ -44,7 +46,10 @@ int main()
     // PriorityQueueDemo();
 
     /******图论算法******/
-    GraghDemo();
- 
+    // GraghDemo();
+
+    /******字符串匹配算法******/
+    StringMatchDemo();
+
     return 0;
 }
