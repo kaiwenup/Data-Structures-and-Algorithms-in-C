@@ -13,7 +13,6 @@
 #include "../inc/uthash/uthash.h"
 #include "../inc/ComFun.h"
 
-
 // typedef struct int_struct {
 //     int id;
 //     int cookie;

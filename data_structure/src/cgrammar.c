@@ -32,6 +32,6 @@ void CGrammarDemo(){
         CUP = 1, PINT, QUART , GALLON
     };
 
-    printf("%d\n", INT_MIN);
+    // printf("%d\n", INT_MIN);
 
 }

@@ -1,3 +1,4 @@
+/**数据结构相关头文件**/
 #include "inc/mylist.h"
 #include "inc/mystack.h"
 #include "inc/myheap.h"
@@ -49,7 +50,10 @@ int main()
     // GraghDemo();
 
     /******字符串匹配算法******/
-    StringMatchDemo();
+    // StringMatchDemo();
+
+    /******贪心算法******/
+    
 
     return 0;
 }

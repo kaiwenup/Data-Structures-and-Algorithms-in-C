@@ -1,38 +1,18 @@
-#把所有的目录做成变量，方便修改和移植 
-BIN = .
-SRC = ./src
-INC = ./inc
-OBJ = ./obj
-CROSS_COMPILE ?= # 编译器路径
+### Environment constants 
 
-#提前所有源文件(即：*.c文件)和所有中间文件(即：*.o)
-SOURCE = $(wildcard ${SRC}/*.c \
-		$(wildcard ./*.c) )
-OBJECT = $(patsubst %.c,${OBJ}/%.o,$(notdir ${SOURCE}))
-OBJECTS = test
+ARCH ?=
+CROSS_COMPILE ?=
+export
+
+### general build targets
+
+all:
+	$(MAKE) all -e -C data_structure
+	$(MAKE) all -e -C algorithm
 
 
-# 设置最后目标文件
- TARGET = $(OBJECTS)
- BIN_TARGET = $(BIN)/$(TARGET)
- 
- CC = $(CROSS_COMPILE)gcc # 编译器名字
-#  CFLAGS = -g -std=gnu++0x   -I$(INC) # 输出error信息
-#  CFLAGS = -O1 -Wall -Wextra -g  -std=c99 -I$(INC) # 输出warning和error信息
-CFLAGS = -O0 -Wextra -g  -std=c99 -I$(INC)
- 
-# 生成最后的可执行文件
-$(BIN_TARGET):$(OBJECT)
-	$(CC)  -o $@ $(OBJECT)
+clean:
+	$(MAKE) clean -e -C data_structure
+	$(MAKE) clean -e -C algorithm
 
-# 各文件单独编译
-$(OBJ)/%.o :$(SRC)/%.c 
-	$(CC) $(CFLAGS)  -c $< -o $@ 
-$(OBJ)/$(OBJECTS).o: ./$(OBJECTS).c 
-	$(CC) $(CFLAGS) -o $@ -c $(OBJECTS).c
-
- .PHONY:clean
- clean:
-	find $(OBJ) -name *.o  -exec rm -rf {} \; 
-	rm -rf $(BIN_TARGET)
-	rm -rf *.dot
+### EOF
