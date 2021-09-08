@@ -57,7 +57,7 @@ int RabinKarp(char haystack[], char needle[], int q){
         if(hash_haystack == hash_needle){
             for(j = 0; j < m; j++){
 
-                if(haystack[i+j] != needle[j]);
+                if(haystack[i+j] != needle[j])
                     break;
             }
 

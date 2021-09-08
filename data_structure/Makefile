@@ -19,8 +19,8 @@ CC := $(CROSS_COMPILE)gcc
 AR := $(CROSS_COMPILE)ar
 
 CFLAGS = -O0 -Wextra -g  -std=c99 -I$(INC)
-#  CFLAGS = -g -std=gnu++0x   -I$(INC) # 输出error信息
-#  CFLAGS = -O1 -Wall -Wextra -g  -std=c99 -I$(INC) # 输出warning和error信息
+# CFLAGS = -g -std=gnu++0x   -I$(INC) # 输出error信息
+# CFLAGS = -O1 -Wall -Wextra -g  -std=c99 -I$(INC) # 输出warning和error信息
 
 BIN = .
 SRC = ./src
@@ -35,13 +35,14 @@ SOURCE = $(wildcard ${SRC}/*.c \
 OBJECT = $(patsubst %.c,${OBJ}/%.o,$(notdir ${SOURCE}))
 
 ### General build targets
-all: $(APP_NAME)
+all: $(APP_NAME) libDataStructures.a
 
 .PHONY:clean
 clean:
 	find $(OBJ) -name *.o  -exec rm -rf {} \; 
 	rm -rf $(BIN_TARGET)
 	rm -rf *.dot
+	rm -rf *.a
 
 ### Main program compilation and assembly
 
@@ -49,6 +50,9 @@ $(shell   mkdir -p $(OBJ))
 
 $(OBJ)/%.o :$(SRC)/%.c 
 	$(CC) $(CFLAGS)  -c $< -o $@ 
+
+libDataStructures.a: $(OBJ)/cgrammar.o $(OBJ)/ComFun.o $(OBJ)/exptree.o $(OBJ)/mygragh.o $(OBJ)/myhash.o $(OBJ)/myheap.o $(OBJ)/myLinkQueue.o $(OBJ)/mylist.o $(OBJ)/mysearchtree.o $(OBJ)/mysorted.o  $(OBJ)/mystack.o $(OBJ)/myStringMatch.o     
+	$(AR) rcs $@ $^
 
 $(OBJ)/$(APP_NAME).o: ./$(APP_NAME).c 
 	$(CC) $(CFLAGS) -o $@ -c $(APP_NAME).c

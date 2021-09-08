@@ -21,9 +21,9 @@ int main()
         srand((unsigned)time(NULL));
 
     // C语言语法
-    CGrammarDemo();
+    // CGrammarDemo();
     /******单链表相关算法******/
-    // single_list_demo();
+    single_list_demo();
 
     /******堆栈相关算法******/
     // mystack_demo();
@@ -52,7 +52,6 @@ int main()
     /******字符串匹配算法******/
     // StringMatchDemo();
 
-    /******贪心算法******/
     
 
     return 0;

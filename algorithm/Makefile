@@ -4,7 +4,7 @@ APP_NAME := algorithm
 
 ### Environment constants 
 
-LGW_PATH ?= 
+LGW_PATH ?= ../data_structure
 ARCH ?=
 CROSS_COMPILE ?=
 
@@ -19,12 +19,13 @@ CC := $(CROSS_COMPILE)gcc
 AR := $(CROSS_COMPILE)ar
 
 CFLAGS = -O0 -Wextra -g  -std=c99 -I$(INC)
+LIBS := -lDataStructures -lrt -lm
 #  CFLAGS = -g -std=gnu++0x   -I$(INC) # 输出error信息
 #  CFLAGS = -O1 -Wall -Wextra -g  -std=c99 -I$(INC) # 输出warning和error信息
 
 BIN = .
 SRC = ./src
-INC = ./inc
+INC = ./inc ../data_structure/inc
 OBJ = ./obj
 TARGET = $(APP_NAME)
 BIN_TARGET = $(BIN)/$(TARGET)
@@ -53,10 +54,9 @@ $(OBJ)/$(APP_NAME).o: ./$(APP_NAME).c
 	$(CC) $(CFLAGS) -o $@ -c $(APP_NAME).c
 
 $(BIN_TARGET):$(OBJECT)
-	$(CC)  -o $@ $(OBJECT)
-
-
-
+	$(CC) -L$(LGW_PATH) -o $@ $(OBJECT) $(LIBS)
+### 另外一种写法
+### $(CC) -o $@ $(OBJECT) ../data_structure/libDataStructure.a
 
 
 ### EOF

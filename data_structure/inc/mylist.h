@@ -22,35 +22,34 @@ typedef int ElemType;
 typedef struct List_Node{
     ElemType data;
     struct List_Node *next;
-}List_Node;
+}List_Node, *Linklist;
 
-typedef struct List_Node *Linklist;
 
 
 
 Status visit(ElemType c);
-Status InitList(Linklist *L);
+Linklist InitList();
 Status ListEmpty(Linklist L);
-Status ClearList(Linklist *L);
+Status ClearList(Linklist L);
 Status ListLength(Linklist L);
 Status GetElem(Linklist L, int i, ElemType *e);
 Status LocateElem(Linklist L, ElemType e);
-Status ListInsert(Linklist *L, int i, ElemType e);
-Status ListDelete(Linklist *L, int i, ElemType *e);
+Status ListInsert(Linklist L, int i, ElemType e);
+Status ListDelete(Linklist L, int i, ElemType *e);
 Status ListTraverse(Linklist L);
-void CreateListHead(Linklist *L, int n);
-void CreateListTail(Linklist *L, int n);
-void CreateCircularListTail(Linklist *L, int n, int k);
-void CreateSortedListTail(Linklist *L, int n);
-Linklist* mergeTwoLists(Linklist* head1, Linklist* head2);
-Linklist* mergeTwoLists_Iteration(Linklist* head1, Linklist* head2);
-Linklist* mergeTwoLists_It(Linklist* head1, Linklist* head2);
-Linklist* detectCycle(Linklist* head);
-Linklist* reverseList(Linklist* L);
-Linklist* reverseList_Iteration(Linklist* head);
-Linklist* reverseList_It(Linklist* head);
-Linklist* removeNthFromEnd(Linklist* head, int n);
-Linklist* middleNode(Linklist* head);
+Linklist CreateListHead(int n);
+Linklist CreateListTail(int n);
+Linklist CreateCircularListTail(int n, int k);
+Linklist CreateSortedListTail(int n);
+Linklist mergeTwoLists(Linklist head1, Linklist head2);
+Linklist mergeTwoLists_Iteration(Linklist head1, Linklist head2);
+Linklist mergeTwoLists_It(Linklist head1, Linklist head2);
+Linklist detectCycle(Linklist head);
+Linklist reverseList(Linklist L);
+Linklist reverseList_Iteration(Linklist head);
+Linklist reverseList_It(Linklist head);
+Linklist removeNthFromEnd(Linklist head, int n);
+Linklist middleNode(Linklist head);
 void single_list_demo();
 
 
