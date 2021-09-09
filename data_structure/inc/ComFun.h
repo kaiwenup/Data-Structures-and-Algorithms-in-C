@@ -10,6 +10,8 @@
 #include "math.h"  
 #include "time.h"
 
+#define SRAND_BUTTON 1
+
 int GenRandomNum(int n);
 void GenRandomArray(int* array, int n);
 void ArrayTraverse(int* array, int n);

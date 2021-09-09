@@ -1,5 +1,4 @@
 #include "../inc/ComFun.h"
-#include "../inc/mysorted.h"
 
 // 随机生成n以内的随机数
 int GenRandomNum(int n){

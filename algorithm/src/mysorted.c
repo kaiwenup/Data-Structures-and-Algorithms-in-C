@@ -1,5 +1,4 @@
 #include "../inc/mysorted.h"
-#include "../inc/ComFun.h"
 
 /**
  * 常见的排序算法：

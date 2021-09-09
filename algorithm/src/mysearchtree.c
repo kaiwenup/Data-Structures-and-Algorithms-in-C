@@ -248,7 +248,7 @@ void MySearchTreeDemo(){
 	depth = SearchTreeDepth(stree);
 	printf("search tree depth is %d\n", depth);
 	// 删除节点
-	SearchTreeDelete(67, stree);
+	SearchTreeDelete(887, stree);
 
 	// 二叉树可视化
 	visualization(stree, "searchtree.dot");

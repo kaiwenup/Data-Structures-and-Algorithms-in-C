@@ -8,7 +8,7 @@
 #include <stdbool.h> 
 #include <unistd.h> 
 
-#include "mystack.h"
+#include "../../data_structure/inc/mystack.h"
 
 #include "math.h"  
 #include "time.h"

@@ -51,7 +51,7 @@ $(shell   mkdir -p $(OBJ))
 $(OBJ)/%.o :$(SRC)/%.c 
 	$(CC) $(CFLAGS)  -c $< -o $@ 
 
-libDataStructures.a: $(OBJ)/cgrammar.o $(OBJ)/ComFun.o $(OBJ)/exptree.o $(OBJ)/mygragh.o $(OBJ)/myhash.o $(OBJ)/myheap.o $(OBJ)/myLinkQueue.o $(OBJ)/mylist.o $(OBJ)/mysearchtree.o $(OBJ)/mysorted.o  $(OBJ)/mystack.o $(OBJ)/myStringMatch.o     
+libDataStructures.a: $(OBJ)/cgrammar.o $(OBJ)/ComFun.o  $(OBJ)/mygragh.o $(OBJ)/myhash.o $(OBJ)/myheap.o $(OBJ)/myLinkQueue.o $(OBJ)/mylist.o    $(OBJ)/mystack.o      
 	$(AR) rcs $@ $^
 
 $(OBJ)/$(APP_NAME).o: ./$(APP_NAME).c 

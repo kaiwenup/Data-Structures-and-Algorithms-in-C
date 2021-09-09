@@ -11,7 +11,7 @@
 #include "math.h"  
 #include "time.h"
 
-#include "../inc/ComFun.h"
+#include "../../data_structure/inc/ComFun.h"
 
 #define MAX_TREE_NODES (1 << 8)
 #define Bi_ARRAY_SIZE 10

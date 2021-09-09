@@ -10,6 +10,7 @@
 #include <math.h>
 #include "time.h"
 
+#include "../../data_structure/inc/ComFun.h"
 
 #define ARRAY_SIZE 6 // 数组长度
 #define SRAND_BUTTON 1

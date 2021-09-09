@@ -3,15 +3,11 @@
 #include "inc/mystack.h"
 #include "inc/myheap.h"
 #include "inc/myLinkQueue.h"
-#include "inc/mysorted.h"
 #include "inc/myhash.h"
 #include "inc/ComFun.h"
 #include "inc/uthash/uthash.h"
-#include "inc/mysearchtree.h"
-#include "inc/exptree.h"
 #include "inc/cgrammar.h"
 #include "inc/mygragh.h"
-#include "inc/myStringMatch.h"
 
 #include "time.h"
 

@@ -88,7 +88,7 @@ int StringMatchDemo(){
     // char needle[] = "ll";
 
     char haystack[] = "GEEKS FOR GEEKS";
-    char needle[] = "GEEK";
+    char needle[] = "EEK";
 
     
     printf("%s\n", haystack);

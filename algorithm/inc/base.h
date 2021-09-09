@@ -10,7 +10,7 @@
 #include "math.h"  
 #include "time.h"
 
-#include "../../data_structure/inc/mysorted.h"
+#include "../inc/mysorted.h"
 #include "../../data_structure/inc/ComFun.h"
 
 // 最大子序列和
