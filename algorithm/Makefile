@@ -25,7 +25,7 @@ LIBS := -lDataStructures -lrt -lm
 
 BIN = .
 SRC = ./src
-INC = ./inc ../data_structure/inc
+INC = ./inc  #../data_structure/inc
 OBJ = ./obj
 TARGET = $(APP_NAME)
 BIN_TARGET = $(BIN)/$(TARGET)
@@ -42,6 +42,7 @@ all: $(APP_NAME)
 clean:
 	find $(OBJ) -name *.o  -exec rm -rf {} \; 
 	rm -rf $(BIN_TARGET)
+	rm -rf *.dot
 
 ### Main program compilation and assembly
 

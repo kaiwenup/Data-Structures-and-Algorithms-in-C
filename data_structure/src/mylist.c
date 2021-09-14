@@ -21,10 +21,11 @@ Linklist InitList(){
 }
 
 Status ListEmpty(Linklist L){  // 注意与上个函数传入值的区别
-    if(L->next == NULL)
-        return FALSE;
-    else  
-        return TRUE;
+    // if(L->next == NULL)
+    //     return FALSE;
+    // else  
+    //     return TRUE;
+    return L->next == NULL; // 简化代码
 }
 
 Status ClearList(Linklist L){
@@ -51,6 +52,20 @@ Status ListLength(Linklist L){
     }
 
     return i;
+}
+
+/* 寻找链表中值为X的节点，并返回, 如果没有找到则返回NULL*/
+Linklist ListFindX(Linklist L, ElemType X){
+
+    Linklist Position;
+
+    Position = L->next;
+
+    while(Position != NULL && Position->data != X){
+        Position = Position->next;
+    }
+
+    return Position;
 }
 
 /* 初始条件：链式线性表L已存在，1≤i≤ListLength(L) */
@@ -134,6 +149,35 @@ Status ListInsert(Linklist L, int i, ElemType e){
     return OK;
     
 }
+
+/* 删除链表中第一次出现元素值为X的节点，如果没有找到返回NUll */
+Linklist FindPrevious(Linklist L, ElemType X){
+    Linklist position = L;
+
+    while(position->next != NULL && position->next->data != X){
+        position = position->next;
+    }
+
+    return position;
+
+}
+Status ListDeleteX(Linklist L, ElemType X){
+
+    Linklist position;
+
+    position = FindPrevious(L, X);
+
+    if(position->next != NULL){
+        Linklist tmpCell;
+        tmpCell = position->next;
+        position->next = tmpCell->next;
+        free(tmpCell);
+        return OK;
+    }
+     
+    return ERROR;
+}
+
 
 
 /* 初始条件：链式线性表L已存在，1≤i≤ListLength(L) */
@@ -504,6 +548,23 @@ void single_list_demo(){
             i=ListInsert(L,j,j);
     printf("在L的表头依次插入1～5后：L.data=");
     ListTraverse(L);
+
+    /********寻找单链表中的某一个元素******/
+    Linklist Position = ListFindX(L, 23);
+    if(Position)
+        printf("find element is %d\n", Position->data);
+    else
+        printf("not find the element!\n");
+
+    /*******删除单链表中第一个元素为X的元素******/
+    if(ListDeleteX(L, 6) != ERROR){
+        printf("delete element successful\n");
+        printf("new list is: \n");
+        ListTraverse(L);
+    }
+    else
+        printf("delete elment failture\n");
+
 
     /********翻转单链表******/
     // L1 = reverseList_Iteration(&(L->next));

@@ -221,6 +221,142 @@ void QuickSortRe(int array[], int len){
     QuickSortRecursive(array, 0 , len-1);
 }
 
+
+/**桶排序
+* 时间复杂度：O(n)
+* 非原地排序算法？
+* 稳定排序算法？
+* https://www.programiz.com/dsa/bucket-sort
+* Note:
+* 1. 一共有10个桶(NBUCKET = 10)，每个桶的容量为10(INTERVAL = 10)，所以一共能对100个元素进行排序，范围为0~99
+**/
+int getBucketIndex(int value){
+
+    return value / INTERVAL;
+}
+
+PtrBucketNode InsertSort_SinglyLinkedList(PtrBucketNode list){
+
+    PtrBucketNode nodelist;
+    PtrBucketNode index;
+
+    if(list == NULL || list->next == NULL)
+        return list;
+
+    nodelist = list;
+    index = list->next;
+    nodelist->next = NULL; // !!! 这几个赋值语句顺序不能错
+
+    while(index != NULL){
+        PtrBucketNode ptr;
+        if(nodelist->data > index->data){
+            PtrBucketNode tmp;
+            tmp = index;
+            index = index->next;
+            tmp->next = nodelist;
+            nodelist = tmp;
+            continue;
+        }
+        
+        // 两种情况退出for循环。1. break 2. ptr == NULL
+        for(ptr = nodelist; ptr->next != NULL; ptr = ptr->next){
+
+            if(ptr->next->data > index->data)
+                break;
+        }
+
+        if(ptr->next != NULL){
+            PtrBucketNode tmp;
+            tmp = index;
+            index = index->next;
+            tmp->next = ptr->next;
+            ptr->next = tmp;
+            continue;
+        }
+        else{
+            ptr->next = index;
+            index = index->next;
+            ptr->next->next = NULL;
+            continue;
+
+        }
+
+
+    }
+
+    return nodelist;
+
+    
+
+}
+
+void printBuckets(PtrBucketNode list){
+    PtrBucketNode cur = list;
+
+    while(cur){
+        printf("%d ", cur->data);
+        cur = cur->next;         
+    }
+}
+
+void BucketSort(int array[], int len){
+
+    int i, j;
+    // 创建buckets
+    PtrBucketNode* buckets = (PtrBucketNode*)malloc(sizeof(BucketNode*) * NBUCKET);
+
+    // 初始化buckets
+    for(i = 0; i < NBUCKET; i++){
+        buckets[i] = NULL;
+    }
+
+    // 将数组中的各个元素放入桶中
+    for(i = 0; i < len; i++){
+
+        PtrBucketNode current;
+        int pos = getBucketIndex(array[i]);
+        current = (PtrBucketNode)malloc(sizeof(BucketNode));
+        current->data = array[i];
+        current->next = buckets[pos];
+        buckets[pos] = current;
+
+    }
+
+    //打印各个桶中的元素
+    for(i = 0; i < NBUCKET; i++){
+        printf("Bucket[%d]: ", i);
+        printBuckets(buckets[i]);
+        printf("\n");
+    }
+
+    // 每个bucket分别用插入排序法进行排序
+    for(i = 0; i < NBUCKET; i++){
+
+        buckets[i] = InsertSort_SinglyLinkedList(buckets[i]);
+    }
+
+    printf("-------------\n");
+    printf("Bucktets after sorting\n");
+    for (i = 0; i < NBUCKET; i++) {
+        printf("Bucket[%d]: ", i);
+        printBuckets(buckets[i]);
+        printf("\n");
+    }
+    
+
+    // 将排序好的元素放入数组中
+    for(j = 0, i = 0; i < NBUCKET; i++){
+        PtrBucketNode node;
+        node = buckets[i];
+        while(node){
+            array[j++] = node->data;
+            node = node->next;
+        }
+    }
+
+}   
+
+
 /**寻找第K个最大的元素，返回其值***********************************
 * 时间复杂度：O(n)
 * 空间复杂度：O(log(n))
@@ -299,11 +435,13 @@ int Bsearch(int array[], int len, int val){
 }
 
 
+
+
 void mysorted_demo(){
 
     // if(SRAND_BUTTON)
     //     srand((unsigned)time(NULL));
-
+    srand((unsigned)time(NULL));
     printf("生成元素个数为%d的一维数组：\n", ARRAY_SIZE);
     int array[ARRAY_SIZE];
     GenRandomArray(array, ARRAY_SIZE);
@@ -328,40 +466,54 @@ void mysorted_demo(){
     int size = 50;
     printf("生成一个%d以内的随机数：%d\n", size, GenRandomNum(size));
 
-    printf("冒泡排序：\n", ARRAY_SIZE);
+    printf("冒泡排序：\n");
     BubbleSort(arr[0], ARRAY_SIZE);
     ArrayTraverse(arr[0],ARRAY_SIZE);
 
-    printf("插入排序：\n", ARRAY_SIZE);
+    printf("插入排序：\n");
     InsertSort(arr[1], ARRAY_SIZE);
     ArrayTraverse(arr[1],ARRAY_SIZE);
 
-    printf("选择排序：\n", ARRAY_SIZE);
+    printf("选择排序：\n");
     InsertSort(arr[2], ARRAY_SIZE);
     ArrayTraverse(arr[2],ARRAY_SIZE);
 
-    printf("归并排序(递归法)：\n", ARRAY_SIZE);
+    printf("归并排序(递归法)：\n");
     MergeSortRe(arr[3], ARRAY_SIZE);
     ArrayTraverse(arr[3],ARRAY_SIZE);
+
+    printf("桶排序：\n");
+    int arr2[ARRAY_SIZE] = {67, 32, 33, 36, 37, 47};
+    for(i = 0; i < ARRAY_SIZE; i++){
+        arr2[i] = GenRandomNum(99);
+    }
+     
+    printf("Initial array: ");
+    ArrayTraverse(arr2, ARRAY_SIZE);
+    printf("-------------\n");
+    BucketSort(arr2, ARRAY_SIZE);
+    printf("-------------\n");
+    printf("Sorted array: ");
+    ArrayTraverse(arr2, ARRAY_SIZE);
 
     int k = 2; // 第k大的元素
     int kth = FindKthlargest(arr[3], ARRAY_SIZE, k);
     printf("第%d大的元素为(算法计算)%d：\n", k, kth);
 
-    printf("快速排序(递归法)：\n", ARRAY_SIZE);
+    printf("快速排序(递归法)：\n");
     QuickSortRe(arr[4], ARRAY_SIZE);
     // QuickSortRe(arr1, ARRAY_SIZE);
     ArrayTraverse(arr[4],ARRAY_SIZE);
     // ArrayTraverse(arr1,ARRAY_SIZE);
 
-    printf("数组寻找第K大的元素验证：\n", ARRAY_SIZE);
+    printf("数组寻找第K大的元素验证：\n");
     if(kth == arr[4][ARRAY_SIZE-k])
         printf("function find answer correct!\n");
     else
         printf("function find answer error!\n");
 
     qsort(arr[5], ARRAY_SIZE, sizeof(arr[5][0]), cmp);
-    printf("快速排序(C语言库函数)：\n", ARRAY_SIZE);
+    printf("快速排序(C语言库函数)：\n");
     ArrayTraverse(arr[5],ARRAY_SIZE);
 
     int find_val = arr[5][3];

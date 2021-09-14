@@ -11,11 +11,8 @@
 int main() 
 {
 
-
-
-
     /******排序相关算法******/
-    // mysorted_demo();
+    mysorted_demo();
 
     /******二叉树相关算法******/
     // 二叉搜索树
@@ -27,7 +24,7 @@ int main()
     /******字符串匹配算法******/
     // StringMatchDemo();
 
-    base_demo();
+    // base_demo();
 
 
 }
